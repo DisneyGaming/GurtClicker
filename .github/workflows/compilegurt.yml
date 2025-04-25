@@ -31,7 +31,8 @@ jobs:
           unzip love-11.5-win32.zip
 
       # Zip Source Code excluding github leftovers.
-      - run : |
+      - name: Zip Source Code
+      - run: |
             zip -r GurtClicker.love . -x ".git/*" ".github/*" ".gitignore"  
 
       # Compile the love file to an executable
@@ -54,8 +55,9 @@ jobs:
           path: GurtClicker.exe
 
       # Create a release
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
         with:
           files: GurtClicker.love GurtClicker.exe
         env:
