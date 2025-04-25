@@ -24,16 +24,37 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+      # Download LÖVE
+      - name: Download LÖVE
+        run: |
+          wget https://github.com/love2d/love/releases/download/11.5/love-11.5-win32.zip
+          unzip love-11.5-win32.zip
 
       # Zip Source Code excluding github leftovers.
       - run : |
-            zip -r GurtClicker.love . -x ".git/*" ".github/*" ".gitignore"
+            zip -r GurtClicker.love . -x ".git/*" ".github/*" ".gitignore"  
 
-      # Runs a set of commands using the runners shell
-      - name: Upload build artifact
+      # Convert the zip file to a love file
+      - run: |
+            mv GurtClicker.love.zip GurtClicker.love
+      # Compile the love file to an executable
+      - name: Compile to executable
+        run: |
+          cat love-11.5-win32/love.exe GurtClicker.love > GurtClicker.exe
+
+      # Upload the love file as an artifact
+      - name: Upload love file
         uses: actions/upload-artifact@v4
         with:
           name: GurtClicker.love
           path: GurtClicker.love
-      
+
+      # Upload the executable as an artifact
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GurtClicker.exe
+          path: GurtClicker.exe
+
+
 
