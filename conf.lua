@@ -2,7 +2,6 @@ function love.conf(t)
     t.identity = "Gurt Clicker"                    -- The name of the save directory (string)
     t.version = "11.5"                -- The LÖVE version this game was made for (string)
     t.console = false                   -- Attach a console (boolean, Windows only)
-    t.accelerometerjoystick = true      -- Enable the accelerometer on iOS and Android by exposing it as a Joystick (boolean)
     t.gammacorrect = false              -- Enable gamma-correct rendering, when supported by the system (boolean)
 
     t.window.title = "Gurt Clicker"         -- The window title (string)

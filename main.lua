@@ -1,5 +1,4 @@
 local discordRPC = require("discordRPC")
-
 local appId = require("applicationId")
 
 local button = {
@@ -15,7 +14,6 @@ local count = 0
 local nextPresenceUpdate = 0
 
 function love.load()
-    love.window.setTitle("Gurt Clicker")
 
     discordRPC.initialize(appId, true)
     local now = os.time(os.date("*t"))
@@ -58,15 +56,23 @@ function love.draw()
 
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(love.graphics.newFont(24))
-    love.graphics.print("Gurts: " .. count, 273, 180)
+    love.graphics.print("Gurts: " .. count, 270, 180)
 end
 
 function love.mousepressed(x, y, buttonType)
     if buttonType == 1 and button.hovered then
         count = count + 1
+        clickSound = love.audio.newSource("sounds/click.ogg", "static")
+        clickSound:play()
     end
-    print("Gurt Count: " .. count) -- Debugging output
+    if count == 100 or count == 500 or count == 1000 then
+        clickSound:stop()
+        cheerSound =love.audio.newSource("sounds/cheer.ogg", "static")
+        cheerSound:play()
+    end
 end
+
+
 
 function love.quit()
     discordRPC.shutdown()
