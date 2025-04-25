@@ -33,7 +33,7 @@ jobs:
       # Zip Source Code excluding github leftovers.
       - run : |
             zip -r GurtClicker.love . -x ".git/*" ".github/*" ".gitignore"  
-            
+
       # Compile the love file to an executable
       - name: Compile to executable
         run: |
@@ -53,5 +53,12 @@ jobs:
           name: GurtClicker.exe
           path: GurtClicker.exe
 
+      # Create a release
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: GurtClicker.love GurtClicker.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
