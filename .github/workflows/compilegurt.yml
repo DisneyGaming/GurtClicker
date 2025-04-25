@@ -33,10 +33,7 @@ jobs:
       # Zip Source Code excluding github leftovers.
       - run : |
             zip -r GurtClicker.love . -x ".git/*" ".github/*" ".gitignore"  
-
-      # Convert the zip file to a love file
-      - run: |
-            mv GurtClicker.love.zip GurtClicker.love
+            
       # Compile the love file to an executable
       - name: Compile to executable
         run: |
